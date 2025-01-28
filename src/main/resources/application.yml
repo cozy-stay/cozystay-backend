@@ -1,0 +1,48 @@
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/cozystay
+    username: postgres
+    password: postgres
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:ekiminatechsavings@gmail.com}
+    password: ${MAIL_PASSWORD:soph dslr rufe tprs}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+server:
+  port: 8081
+jwt:
+  jwtSecret: ${JWT_SECRET:yourverylongandverysecuresecretkeyherediuqwhduiqwhduiqwhqwuidhqwuidqhwduiqwhdquiwdqwfiojasiofjasoifjasfioaj}
+  expiration: 3600000
+invitation:
+  valid:
+    days: 7
+
+app:
+  registration:
+    code: 123456
+    fronted: ${FRONTED:http://128.140.67.37:3000}
+  host: ${HOST:http://128.140.67.37:8081}
+
+
+springdoc:
+  api-docs:
+    enabled: true
+    swagger-ui:
+      enabled: true
+      path: /swagger-ui.html
+    path: /v3/api-docs
