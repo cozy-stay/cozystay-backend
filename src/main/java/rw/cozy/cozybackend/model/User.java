@@ -65,8 +65,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<UserRole> roles = new HashSet<>();
-    private UUID groupId;
-    private UUID memberId;
+    private UUID tenantId;
+//    private UUID memberId;
 
     @Lazy
     @JsonIgnore

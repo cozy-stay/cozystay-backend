@@ -3,7 +3,7 @@ package rw.cozy.cozybackend.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import rw.cozy.cozybackend.dtos.request.CreateAdminDTO;
-import rw.cozy.cozybackend.dtos.request.CreateGroupAdminDTO;
+import rw.cozy.cozybackend.dtos.request.CreateCompanyAdminDTO;
 import rw.cozy.cozybackend.dtos.request.CreateUserDTO;
 import rw.cozy.cozybackend.dtos.request.UpdateUserDTO;
 import rw.cozy.cozybackend.model.User;
@@ -32,8 +32,7 @@ public interface IUserService {
 
     // ALTENATIVE CREATE USER METHOD
     User createAdmin(CreateAdminDTO createAdminDTO);
-    User createGroupADMIN(CreateGroupAdminDTO createAdminDTO);
-    User createGroupMember(CreateGroupAdminDTO userDTO);
+    User createTenantADMIN(CreateCompanyAdminDTO createAdminDTO);
     boolean isCodeValid(String email, String token);
 //    User createInviteUser(InviteUserDTO inviteUserDTO, String token);
 
