@@ -23,8 +23,8 @@ public interface IUserRepository extends JpaRepository<User, UUID> {
     Page<User> findAllByVisibility(EVisibility visibility , Pageable pageable);
     List<User> findAllByRolesContainsAndVisibility(UserRole role, EVisibility visibility);
     Page<User> findAllByRolesContainsAndVisibility(UserRole role, EVisibility visibility , Pageable pageable);
-    List<User> findAllByGroupId(UUID groupId);
-    @Query("SELECT DISTINCT u FROM User u JOIN u.roles r WHERE u.groupId = :groupId AND r.name NOT IN :roleNames")
-    List<User> findAllByGroupIdAndRolesNotContaining(@Param("groupId") UUID groupId, @Param("roleNames") Set<String> roleNames);
+    List<User> findAllByTenantId(UUID tenantId);
+    @Query("SELECT DISTINCT u FROM User u JOIN u.roles r WHERE u.tenantId = :tenantId AND r.name NOT IN :roleNames")
+    List<User> findAllByTenantIdAndRolesNotContaining(@Param("tenantId") UUID tenantId, @Param("roleNames") Set<String> roleNames);
 
 }

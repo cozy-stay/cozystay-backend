@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import rw.cozy.cozybackend.dtos.request.CreateAdminDTO;
-import rw.cozy.cozybackend.dtos.request.CreateGroupAdminDTO;
+import rw.cozy.cozybackend.dtos.request.CreateCompanyAdminDTO;
 import rw.cozy.cozybackend.dtos.request.CreateUserDTO;
 import rw.cozy.cozybackend.dtos.request.UpdateUserDTO;
 import rw.cozy.cozybackend.enums.EUserStatus;
@@ -242,7 +242,7 @@ public class UserServiceImpl implements IUserService {
                 userEntity.setPassword(Hash.hashPassword(createAdminDTO.getPassword()));
                 userRepository.save(userEntity);
 
-                mailService.sendAccountVerificationEmail(userEntity);
+//                mailService.sendAccountVerificationEmail(userEntity);
                 return userEntity;
             }else{
                 throw new BadRequestException("You are not authorized to create an admin");
@@ -254,7 +254,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User createGroupADMIN(CreateGroupAdminDTO createAdminDTO) {
+    public User createTenantADMIN(CreateCompanyAdminDTO createAdminDTO) {
         try {
 
                 User userByEmail = userRepository.findByEmail(createAdminDTO.getEmail()).orElse(null);
@@ -271,7 +271,7 @@ public class UserServiceImpl implements IUserService {
                 userEntity.setLastName(createAdminDTO.getLastName());
                 userEntity.setEmail(createAdminDTO.getEmail());
                 userEntity.setUsername(createAdminDTO.getUsername());
-                userEntity.setGroupId(createAdminDTO.getGroupId());
+                userEntity.setTenantId(createAdminDTO.getTenantId());
                 User saved= userRepository.save(userEntity);
 
                 mailService.sendAccountVerificationEmail(userEntity);
@@ -282,36 +282,7 @@ public class UserServiceImpl implements IUserService {
             return null;
         }
     }
-    @Override
-    public User createGroupMember(CreateGroupAdminDTO createAdminDTO) {
-        try {
 
-            User userByEmail = userRepository.findByEmail(createAdminDTO.getEmail()).orElse(null);
-            if(userByEmail != null){
-                throw new BadRequestException("The user with the given email already exists");
-            }
-
-            UserRole role = roleRepository.findByName("GROUP_MEMBER").orElseThrow(()-> new NotFoundException("The role of and member was not found"));
-            User userEntity = new User();
-            userEntity.getRoles().add(role);
-
-
-            userEntity.setFirstName(createAdminDTO.getFirstName());
-            userEntity.setLastName(createAdminDTO.getLastName());
-            userEntity.setEmail(createAdminDTO.getEmail());
-            userEntity.setUsername(createAdminDTO.getUsername());
-            userEntity.setMemberId(createAdminDTO.getMemberId());
-            userEntity.setGroupId(createAdminDTO.getGroupId());
-            User saved= userRepository.save(userEntity);
-
-            mailService.sendAccountVerificationEmail(userEntity);
-            return saved;
-
-        }catch (Exception e){
-            ExceptionUtils.handleServiceExceptions(e);
-            return null;
-        }
-    }
 
     @Override
     @Transactional

@@ -11,11 +11,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreateGroupAdminDTO {
+public class CreateCompanyAdminDTO {
     private String firstName;
     private String lastName;
     private String email;
     private String username;
-    private UUID groupId;
+    private UUID tenantId;
     private UUID memberId;
 }
